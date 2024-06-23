@@ -1,26 +1,24 @@
-package nqueens;
+package nqueenstwo;
 
-import java.util.ArrayList;
-import java.util.List;
+public class NQueensTwo {
 
-public class Nqueens {
+    static int output;
 
-    public List<List<String>> solveNQueens(int n) {
-        String[][] chessTable = new String[n][n];
-        initializeChessBoard(chessTable);
-        List<List<String>> output = new ArrayList<>();
-        recursiveBacktracking(0,chessTable,n, output);
+    public int totalNQueens(int n) {
+        output = 0;
+        String[][] chessTable = initializeChessBoard(n);
+        recursiveBacktracking(0,chessTable,n);
         return output;
     }
 
-    private void recursiveBacktracking(int colIndex, String[][] chessTable, int numberOfQueens, List<List<String>> output){
+    private void recursiveBacktracking(int colIndex, String[][] chessTable, int numberOfQueens){
         if(colIndex == numberOfQueens){
-            output.add(chessBoardtoList(chessTable));
+            output++;
         }
         for(int rowIndex =0; rowIndex<numberOfQueens; rowIndex++){
             if(isValid(rowIndex, colIndex, chessTable)){
                 chessTable[rowIndex][colIndex] = "Q";
-                recursiveBacktracking(colIndex+1, chessTable, numberOfQueens, output);
+                recursiveBacktracking(colIndex+1, chessTable, numberOfQueens);
                 chessTable[rowIndex][colIndex] = ".";
             }
         }
@@ -47,23 +45,13 @@ public class Nqueens {
         return true;
     }
 
-    public void initializeChessBoard(String[][] chessTable){
+    public String[][] initializeChessBoard(int n){
+        String[][] chessTable = new String[n][n];
         for(int i=0; i<chessTable[0].length;i++){
             for(int j=0; j<chessTable[0].length;j++){
                 chessTable[i][j] = ".";
             }
         }
-    }
-
-    public List<String> chessBoardtoList(String[][] chessTable){
-        List<String> output = new ArrayList<>();
-        for(int i=0; i<chessTable[0].length;i++){
-            String op = "";
-            for(int j=0; j<chessTable[0].length;j++){
-                op = op+(chessTable[i][j]);
-            }
-            output.add(op);
-        }
-        return output;
+        return chessTable;
     }
 }
