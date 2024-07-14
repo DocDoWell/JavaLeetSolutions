@@ -14,7 +14,6 @@ public class MinimumPath {
         }
 
         for(int row =0; row < board[0].length; row++){
-
             if(row == 0){
                 board[0][row] = grid[0][row];
             }else{
