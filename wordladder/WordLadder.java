@@ -13,7 +13,7 @@ public class WordLadder {
         //assume beginWord is not in wordlist
         int[][] adjacencyMatrix = getAdjacentMatrix(beginWord, endWord, wordList);
 
-        return bfsTraverse(0,adjacencyMatrix, new boolean[adjacencyMatrix.length], wordList.indexOf(endWord) + 1, wordList);
+        return bfsTraverse(0,adjacencyMatrix, new boolean[adjacencyMatrix.length], wordList.indexOf(endWord) + 1);
     }
 
     private int[][] getAdjacentMatrix(String beginWord, String endWord, List<String> wordList) {
@@ -43,30 +43,31 @@ public class WordLadder {
         return adjacencyMatrix;
     }
 
-    public int bfsTraverse(int source, int[][] adjacencyMatrix, boolean[] visited, int target, List<String> wordList) {
-        Set<Integer> searched = new HashSet<>();
+
+    public int bfsTraverse(int source, int[][] adjacencyMatrix, boolean[] visited, int target) {
         Queue<Integer> queue = new LinkedList<>();
-        visited[source] = true;
         queue.add(source);
-        int ans = 0;
-        while (!queue.isEmpty()) {
-            Integer actual = queue.remove();
-            ans++;
-            for (int i = 0; i < adjacencyMatrix[actual].length; i++) {
-                if (!visited[i]){
-                    if(adjacencyMatrix[actual][i] == 1) {
-                        if (i==target){
-                           return ans;
+
+        int output = 0;
+
+        while(queue.size() > 0){
+            int size = queue.size();
+            output++;
+            for(int k=0; k < size; k++){
+                int index = queue.remove();
+                if(index == target){
+                    return output;
+                }
+                if (!visited[index]) {
+                    for(int j=0; j < adjacencyMatrix[index].length; j++){
+                        if (adjacencyMatrix[index][j] == 1) {
+                            queue.add(j);
                         }
-                        System.out.println("actual " + actual);
-                        searched.add(actual);
-                        queue.add(i);
-                        System.out.println(" ----->>>> " + adjacencyMatrix[actual][i] + " ---- " + wordList.get(i - 1));
-                        visited[i] = true;
                     }
                 }
             }
         }
+
         return 0;
     }
 

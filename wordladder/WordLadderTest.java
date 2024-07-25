@@ -21,6 +21,7 @@ public class WordLadderTest {
     public void test2(){
         List<String> input= Arrays.asList("hot","dot","dog","lot","log","cog");
         assertEquals(5, wordLadder.ladderLength("hit", "cog", input));
+       // "hit" -> "hot" -> "dot" -> "dog" -> "cog"
 
     }
 
