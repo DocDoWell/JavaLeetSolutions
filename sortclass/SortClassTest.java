@@ -25,5 +25,5 @@ public class SortClassTest {
             assertTrue(nums[i] <= nums[i+1]);
         }
     }
-    
+
 }
